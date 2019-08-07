@@ -1,8 +1,8 @@
 # Neural-Network-App
 A small web app to visualize training impacts of different network architectures and optimization methods solving regression tasks. It is mostly meant to serve as a learning tool to complement the theoretical materials.
 <p float="center">
-  <img src="https://github.com/neswolf/Neural-Network-App/blob/master/static/Images/appPicsHome.png" width="800" height="500" />
-  <img src="https://github.com/neswolf/Neural-Network-App/blob/master/static/Images/appPicsNet.png" width="800" height="500"/>
+  <img src="https://github.com/Flowsen753/Neural-Network-App/blob/master/static/Images/appPicsHome.png" width="800" height="500" />
+  <img src="https://github.com/Flowsen753/Neural-Network-App/blob/master/static/Images/appPicsNet.png" width="800" height="500"/>
 </p>
 
 <br><br>
