@@ -103,6 +103,22 @@ var cyGraph = {
     
     handle["redraw"]();
   },
+  
+  updateColor: (handle, data, options) => {
+    // Colorize node according to the avg weight if available
+    if (options.nodeWeights != undefined) {
+        data.forEach((vec,i) => {
+            let weight_avg = options["nodeWeights"][i]
+            let color_select = ['rgb(245, 100, 10)', 'rgb(66,165,245)']
+            let color = (weight_avg>=0) ? color_select[1] : color_select[0]
+            let opacity = (weight_avg<0) ? -weight_avg : weight_avg;
+            opacity = (opacity>1) ? 1 : opacity
+            handle.nodes('[id = "'+vec.toString()+'"]').style('background-color', color);
+            handle.nodes('[id = "'+vec.toString()+'"]').style('background-opacity', opacity.toString());
+        })
+    }
+    handle["redraw"]();
+  },
 
 
   arange: (handle, data, options) => {
@@ -110,10 +126,11 @@ var cyGraph = {
     handle.add(data.map((vec, i) => {
         return { group: 'nodes', data: { id: vec.toString(), pos: vec}}
     }))
+    
     // Edges
     data.forEach((element, i) => {
-      sourcePos = element.toString()
-      targetRow = (element[0] + 1).toString()
+      let sourcePos = element.toString()
+      let targetRow = (element[0] + 1).toString()
       if (element[0] < options.numRows - 2) {
         for(j=0; j<options.numCols; j++) {
           handle.add({
@@ -159,9 +176,9 @@ var cyGraph = {
       })
       .selector(':selected')
       .style({
-          'background-color': 'rgb(66,165,245)',
+          'background-color': 'rgb(50,50,50)',
           'background-opacity': 0.9,
-          'border-width': '1',
+          'border-width': '2',
           'border-color': '#42a5f5'
       })
       // ...

@@ -2,10 +2,12 @@ var net = {
   model: null,
   config: null,
   processed: {},
+  currentEpoch: 0,
 
   init: (config) => {
     try {
       net._evalConfig(config)
+	  net.currentEpoch = 0;
     } catch {
       console.log('Network.init: Invalid configuration')
     }
@@ -83,11 +85,19 @@ var net = {
     
     
     const batchSize = net.config._batchSize;
-    const epochs = net.config.epochsPerRun;
+    let epochs = net.config.epochsPerRun - net.currentEpoch;
+	epochs = (epochs >= 0) ? epochs : 0;
     
     onEpochEnd = (epoch, logs) => {
-      $(document).trigger('epoch.end', [{epoch, logs}])
+      $(document).trigger('epoch.end', 
+		[{epoch: net.currentEpoch, logs: logs}]
+	  )
+	  net.currentEpoch++;
+	  if (net.currentEpoch >= net.config.epochsPerRun) {
+		  net.currentEpoch = 0;
+	  }
     }
+	
     return await net.model.fit(inputs, labels, {
       batchSize,
       epochs,

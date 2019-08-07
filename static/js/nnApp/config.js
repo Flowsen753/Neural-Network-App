@@ -19,7 +19,7 @@ var config = {
     epochsPerRun:500,
     lr:0.001,
     batchSize:30,
-    optim:"sgd",
+    optim:"adam",
     loss:"mse",
     norm:"minMax"
   }, 
@@ -76,8 +76,10 @@ var config = {
     try {
       let numLayers = eval(config.ui.$hiddenlayer.val())+2
       numLayers = (numLayers < 3) ? 3 : numLayers
+	  numLayers = (numLayers > 50) ? 50 : numLayers
       let nodesPerLayer = eval(config.ui.$nodes.val())
       nodesPerLayer = (nodesPerLayer < 1) ? 1 : nodesPerLayer
+	  nodesPerLayer = (nodesPerLayer > 1000) ? 1000 : nodesPerLayer
       let epochsPerRun = eval(config.ui.$epochsPerRun.val())
       epochsPerRun = (epochsPerRun < 1) ? 1 : epochsPerRun 
       epochsPerRun = (epochsPerRun > 5000) ? 5000 : epochsPerRun 
