@@ -349,7 +349,7 @@ var nnApp = {
     let limit = 1.40
     let predictions = net.predict(nnApp.state.isNormedView, limit)
     if (!predictions){
-      console.log("Cant predict the future at the moment")
+      console.log("Cant predict the future at the moment :(")
       return
     }
 
