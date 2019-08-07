@@ -40,11 +40,14 @@
 
 <body>
 
+<div id="loadingSpinner" class="spinner-border text-info overlay d-none" role="status">
+		  <!--<span class="sr-only">Loading...</span>-->
+</div>
 
 <div class="with-iconav">
 
   <nav class="iconav">
-    <a class="iconav-brand" style="background-color: rgba(0,0,255,0.1)" href="#">
+    <a class="iconav-brand" style="background-color: rgba(153,217,234,0.1)" href="#">
 		<div id="logoMain" class="icon iconav-brand-icon mx-auto">
 			<div id="logoUpperLeft" class="icon"></div>
 			<div id="logoUpperRight" class="icon"></div>
@@ -74,7 +77,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" title="View Code"
+          <a class="nav-link" href="https://github.com/Flowsen753/Neural-Network-App" target="_blank" title="View Code"
             data-toggle="tooltip"
             data-placement="right"
             data-container="body">
@@ -83,7 +86,7 @@
           </a>
         </li>
         <li class="nav-item" data-toggle="modal" data-target="#clap">
-          <a class="nav-link" href="#" title="Clap Clap"
+          <a id="like" class="nav-link" href="#" title="Clap Clap"
             data-toggle="tooltip"
             data-placement="right"
             data-container="body">
@@ -105,13 +108,24 @@
         </div>
         <div class="modal-body pt-2">
 			<div class="media">
-			  <img class="mr-3" src="/static/Images/myPic.png" width="70px" height="100px" alt="Image">
+			  <img class="mr-3" src="/static/Images/myPic.PNG" width="70px" height="100px" alt="Image">
 			  <div class="media-body">
 				<p>Embedded Software Engineer by profession. Machine Learning Enthusiast. Passionate about 
-				   building web and mobile apps.</p>
+				   building web and mobile apps.<br>
+				   Connect with me on:
+				</p>
+				<div class="row justify-content-center h3 py-0 my-0">
+					<a class="nav-link py-0" href="https://www.linkedin.com/in/florian-wittl-7857a1136/" target="_blank">
+					<span class="icon icon-linkedin-with-circle text-primary"></span></a>
+					<a class="nav-link py-0" href="https://github.com/Flowsen753/" target="_blank">
+					<span class="icon icon-github-with-circle text-secondary"></span></a>
+				</div> 
 			  </div>
 			</div>
         </div>
+		<div class="modal-actions">
+			<button type="button" class="btn-link  modal-action solo" data-dismiss="modal">Close</button>
+		</div>
       </div>
     </div>
   </div> 
@@ -172,7 +186,7 @@
 				<div class="col-5">
 					<button type="button" class="btn btn-sm btn-outline-primary mr-2" disabled>
 					  <span class="icon icon-line-graph"></span>
-					  Extrapolate
+					  Deduce
 					</button>	
 				</div>
 				<div class="col-7">
@@ -194,8 +208,10 @@
 					</p>
 				</div>
 			</div>
-			<hr class="mt-1 mb-1 pl-n1 mh-n1">
         </div>
+		<div class="modal-actions">
+			<button type="button" class="btn-link  modal-action solo" data-dismiss="modal">Close</button>
+		</div>
       </div>
     </div>
   </div> 
@@ -213,6 +229,9 @@
 				<span class="icon icon-heart text-danger mx-auto" style="font-size:200%"></span>
 			</div>
         </div>
+		<div class="modal-actions">
+			<button type="button" class="btn-link  modal-action solo" data-dismiss="modal">Close</button>
+		</div>
       </div>
     </div>
   </div> 
@@ -227,8 +246,8 @@
       <div class="dashhead-toolbar">
         <div class="input-with-icon dashhead-toolbar-item mr-0">
           <select class="custom-select pl-5 border border-primary font-weight-bold" id="dataSelect">
-              <option value="0" selected>Cloud</option>
-              <option value="1">Sine Wave</option>
+              <option value="0" >Cloud</option>
+              <option value="1" selected>Sine Wave</option>
               <option value="2">Scewed Lines</option>
 			  <option value="3" id="userdata-option" disabled>User Data</option>
             </select>
@@ -236,12 +255,10 @@
         </div>
         <span class="dashhead-toolbar-divider d-none d-md-inline-block"></span>
         <button id="training" type="button" class="btn btn-outline-primary dashhead-toolbar-item mr-2">
-          <span class="icon icon-rocket"></span>
-          Run
+          <span class="icon icon-rocket"> Run</span>
         </button>
         <button id="extrapolate" type="button" class="btn btn-outline-primary dashhead-toolbar-item mr-2">
-          <span class="icon icon-line-graph"></span>
-          Extrapolate 
+          <span class="icon icon-line-graph"> Deduce</span>
         </button>
         <button type="button" id="settings_open" class="btn btn-outline-secondary dashhead-toolbar-item mr-2"
         data-toggle="modal" data-target="#settings">
@@ -269,14 +286,14 @@
     <hr class="mt-0 mb-2">
 
     <div class="tab-content">
+		
 
       <div role="tabpanel" class="tab-pane active" id="performance">
-        <div class="d-flex justify-content-end align-items-end mb-0">
-          <input id="toggleDataView"
-            type="checkbox" checked data-toggle="toggle"
-            data-onstyle="outline-primary" data-offstyle="outline-info"
-            data-on="Raw" data-off="Normalized"
-            data-size="xs" data-style="ios">
+        <div class="d-flex justify-content-end mt-n2">
+			<div class="custom-control custom-switch">
+			  <input id="toggleDataView" type="checkbox" class="custom-control-input" >
+			  <label class="custom-control-label" for="toggleDataView" style="padding-top: 2px">Normalized</label>
+			</div>
         </div> 
         <div class="ex-line-graphs mb-5 mt-0">
           <canvas
@@ -457,8 +474,8 @@
                   <label class="my-auto col-6">Optimizer:</label>
                   <div class="input-with-icon px-2 col-6">
                     <select class="custom-select custom-select-sm pl-3" id="optimizer">
-                        <option value="sgd" selected>SGD</option>
-                        <option value="adam">Adam</option>
+                        <option value="sgd">SGD</option>
+                        <option value="adam" selected>Adam</option>
                         <option value="rmsprop">RMSProp</option>
                       </select>
                   </div>
@@ -582,7 +599,7 @@
 			Florian Wittl<br>
 			</p><p><strong>Kontakt:</strong> <br>
 			Telefon: +49-15129155825<br>
-			E-Mail: <a href='mailto:ximorez@web.de'>ximorez@web.de</a></br></p><p><strong>Haftungsausschluss: </strong><br><br><strong>Haftung für Inhalte</strong><br><br>
+			E-Mail: <a href='mailto:app138743624@heroku.com'>app138743624@heroku.com</a></br></p><p><strong>Haftungsausschluss: </strong><br><br><strong>Haftung für Inhalte</strong><br><br>
 			Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.<br><br><strong>Haftung für Links</strong><br><br>
 			Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.<br><br><strong>Urheberrecht</strong><br><br>
 			Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.<br><br><strong>Datenschutz</strong><br><br>
@@ -631,7 +648,6 @@
     <script src="/static/js/nnApp/nLines.js"></script>
     <script src="/static/js/nnApp/cyGraph.js"></script>
     <script src="/static/js/nnApp/bootstrap-slider.min.js"></script>
-    <script src="/static/js/nnApp/bootstrap4-toggle.min.js"></script>
     <script src="/static/js/nnApp/quickstats.js"></script>
     <script src="/static/js/nnApp/config.js"></script>
 	<script src="/static/js/nnApp/fileUpload.js"></script>
